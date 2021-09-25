@@ -24,4 +24,5 @@
 .WorkloadForm-complexity-selector {
   width: 100%;
   margin-bottom: 8px;
+  cursor: pointer;
 }
