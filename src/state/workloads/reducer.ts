@@ -1,18 +1,13 @@
 import { ActionType, getType } from 'typesafe-actions';
-
-import { Status } from './types';
 import * as workloadActions from './actions';
+import { Work } from './services';
 
 
 export type WorkloadsAction = ActionType<typeof workloadActions>
 
 
-interface WorkloadEntry<Id extends number> {
+interface WorkloadEntry<Id extends number> extends Work {
   id: Id;
-  complexity: number;
-  completeDate: Date;
-  status: Status;
-  timer: NodeJS.Timeout;
 }
 
 export type WorkloadsState = {
@@ -32,7 +27,6 @@ export const workloadReducer = (state: WorkloadsState = initialState, action: Wo
           complexity: action.payload.complexity,
           completeDate: action.payload.completeDate,
           status: action.payload.status,
-          timer: action.payload.timer,
         },
       };
       

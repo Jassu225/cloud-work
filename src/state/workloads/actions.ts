@@ -12,7 +12,6 @@ export const created = createAction(CREATED, resolve =>
     status: params.status,
     completeDate: params.completeDate,
     complexity: params.complexity,
-    timer: params.timer,
   }));
 
 export const cancel = createAction(CANCEL, resolve => (params: { id: number }) => resolve({ id: params.id }));
