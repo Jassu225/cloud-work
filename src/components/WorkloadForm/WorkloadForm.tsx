@@ -1,71 +1,47 @@
-import React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useAppDispatch } from '../../state/hooks';
 import { submit } from '../../state/workloads/actions';
+import Button from '../base/Button/Button';
+import './WorkloadForm.css';
 
+const defaultState = {
+  complexity: 5,
+};
 
-interface WorkloadFormDispatchProps {
-  submitWorkload: (complexity: number) => void  
-}
+const WorkloadForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [state, setState] = useState(defaultState);
 
-interface WorkloadFormProps extends 
-  WorkloadFormDispatchProps {}
-
-interface WorkloadFormState {
-  complexity: number;
-}
-
-class WorkloadForm extends React.PureComponent<WorkloadFormProps, WorkloadFormState> {
-  defaultState = {
-    complexity: 5,
-  }
-
-  state = this.defaultState;
-
-  handleSubmit = (e: React.MouseEvent) => {
-    this.props.submitWorkload(this.state.complexity);
-    this.setState(this.defaultState);
+  const handleSubmit = (e: React.MouseEvent) => {
+    dispatch(submit({ complexity: state.complexity }));
+    setState(defaultState);
     e.preventDefault();
-  }
+  };
 
-  render() {
-    return (
-      <form>
-        <h2>Create workload</h2>
-        
-        <div>
-          <label>
-            Complexity: {this.state.complexity}
-            <br />
-            <input 
-              value={this.state.complexity} 
-              onChange={(e) => this.setState({ complexity: Number(e.target.value) })} 
-              type="range" 
-              min="1" 
-              max="10" 
-            />
-          </label>
-        </div>
-
-        <div>
-          <button onClick={this.handleSubmit} type="submit">Start work</button>
-        </div>
-      </form>
-    );
-  }
-}
-
-
-const mapDispatchToProps = (dispatch: Dispatch): WorkloadFormDispatchProps => ({
-  submitWorkload: (complexity: number) => dispatch(submit({ complexity })),
-});
-
-const WorkloadFormContainer = connect(null, mapDispatchToProps)(WorkloadForm);
-
-
-export {
-  WorkloadForm,
-  WorkloadFormContainer,
-}
+  return (
+    <form className="WorkloadForm-container">
+      <h3 className="WorkloadForm-header">Create workload</h3>
+      <div>
+        <label>
+          <div className="WorkloadForm-label">
+            <span className="WorkloadItem-label-header">Complexity: </span>
+            {state.complexity}
+          </div>
+          <input
+            className="WorkloadForm-complexity-selector"
+            value={state.complexity}
+            onChange={(e) => setState({ complexity: Number(e.target.value) })}
+            type="range"
+            min="1"
+            max="10"
+          />
+        </label>
+      </div>
+      <Button onClick={handleSubmit} type="submit">
+        Start work
+      </Button>
+    </form>
+  );
+};
 
 export default WorkloadForm;

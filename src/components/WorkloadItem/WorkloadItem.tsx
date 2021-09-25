@@ -1,50 +1,74 @@
-import React from 'react';
+import * as React from 'react';
 import TimeAgo from 'react-timeago';
-import { Status } from '../../state/workloads'
+import { useAppDispatch, useAppSelector } from '../../state/hooks';
+import { cancel, checkStatus } from '../../state/workloads/actions';
+import Button from '../base/Button/Button';
+import './WorkloadItem.css';
 
-
-export interface WorkloadItemStateProps {
-  id: number;
-  complexity: number;
-  status: Status;
-  completeDate: Date;
+export interface WorkloadItemProps {
+    id: number;
 }
 
-export interface WorkloadItemMethodProps {
-  onCancel: () => void;
+const timeFormatter = (value: number, unit: TimeAgo.Unit) => {
+  return `${value} ${
+    value === 1 ? unit : `${unit}s`
+  }`;
 }
 
-export interface WorkloadItemProps extends 
-  WorkloadItemStateProps,
-  WorkloadItemMethodProps {}
 
+const WorkloadItem: React.FC<WorkloadItemProps> = (props) => {
+  const dispatch = useAppDispatch();
+  const workload = useAppSelector((state) => state.workloads[props.id]);
 
-const WorkloadItem: React.SFC<WorkloadItemProps> = (props) => (
+  const isWorking = workload.status === 'WORKING';
+
+  React.useEffect(() => {
+    const now = Date.now();
+    const timeout = workload.completeDate.getTime() - now + 10;
+    if (isWorking && timeout > 0) {
+      const timeoutID = setTimeout(() => {
+        dispatch(checkStatus({ id: workload.id }));
+      }, timeout);
+      return () => {
+        clearTimeout(timeoutID);
+      };
+    }
+  }, [dispatch, workload.completeDate, workload.id, isWorking]);
+
+  return (
   <div className="WorkloadItem">
     <div>
-      <h3 className="WorkloadItem-heading">Workload #{props.id}</h3>
-      <span className="WorkloadItem-subHeading">Complexity: {props.complexity}</span>
+      <h4 className="WorkloadItem-heading">Workload #{workload.id}</h4>
+      <div className="WorkloadItem-infoText">
+        <span className="WorkloadItem-complexity">
+          <span className="WorkloadItem-infoText-header">Complexity: </span>
+          {workload.complexity}
+        </span>
+        {isWorking && (
+          <span className="WorkloadItem-time-remaining">
+            <span className="WorkloadItem-infoText-header"> • Time remaining: </span>
+            <TimeAgo date={workload.completeDate} formatter={timeFormatter} />
+          </span>
+        )}
+      </div>
     </div>
-    <div>
-      {props.status === 'WORKING'
+    <div className="WorkloadItem-status-or-time">
+      {isWorking
         ? (
-          <>
-            <span><TimeAgo date={props.completeDate} /></span>
-            <button 
+            <Button 
               className="WorkloadItem-secondaryButton" 
-              onClick={props.onCancel}
+              onClick={() => dispatch(cancel({ id: workload.id }))}
             >
               Cancel
-            </button>
-          </>
+            </Button>
         )
         : (
-          <span className="WorkloadItem-statusText">{props.status.toLowerCase()}</span>
+          <span className={`WorkloadItem-statusText ${workload.status.toLowerCase()}`}>{workload.status}</span>
         )
       }
     </div>
   </div>
-);
+)};
 
 
 export { 

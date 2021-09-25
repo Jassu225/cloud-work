@@ -12,6 +12,7 @@ interface WorkloadEntry<Id extends number> {
   complexity: number;
   completeDate: Date;
   status: Status;
+  timer: NodeJS.Timeout;
 }
 
 export type WorkloadsState = {
@@ -31,6 +32,7 @@ export const workloadReducer = (state: WorkloadsState = initialState, action: Wo
           complexity: action.payload.complexity,
           completeDate: action.payload.completeDate,
           status: action.payload.status,
+          timer: action.payload.timer,
         },
       };
       

@@ -1,0 +1,35 @@
+.WorkloadItem {
+  color: rgb(247, 248, 248);
+  box-shadow: 0 0.625rem 0.75rem rgba(18, 18, 18, 0.2);
+  padding: 1.25rem;
+  margin-top: 1rem;
+  background-color: #2a2b2d;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.WorkloadItem-infoText {
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.WorkloadItem-infoText-header {
+  font-weight: 600;
+}
+
+.WorkloadItem-time-remaining {
+  margin-left: 0px;
+}
+
+.WorkloadItem-status-or-time {
+  margin-left: auto;
+}
+
+.WorkloadItem-statusText.failure {
+  color: #ffa4a4;
+}
+
+.WorkloadItem-statusText.success {
+  color: #08bd80;
+}

@@ -51,14 +51,16 @@ export class WorkloadService {
     if (!work) return Promise.reject('Workload not found');
     if (work.status !== 'WORKING') return Promise.reject('Workload cannot be canceled');
 
-    clearTimeout(work.timer)
+    clearTimeout(work.timer);
     work.status = 'CANCELED';
 
     return Promise.resolve(work);
   }
 }
 
-interface Work {
+export const workloadService = new WorkloadService();
+
+export interface Work {
   id: number;
   complexity: number;
   completeDate: Date;
