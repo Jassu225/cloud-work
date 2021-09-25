@@ -1,15 +1,22 @@
-import moment from 'moment';
-
 import { Status } from './types';
 
+export interface Work {
+  id: number;
+  complexity: number;
+  completeDate: Date;
+  status: Status;
+}
 
+interface WorkWithTimer extends Work {
+  timer: NodeJS.Timeout;
+}
 export class WorkloadService {
 
-  private workLoads: { [key in number]: Work } = {};
+  private workLoads: { [key in number]: WorkWithTimer } = {};
   private counter = 0;
 
 
-  private getWorkload(id: number): Work | undefined {
+  private getWorkload(id: number): WorkWithTimer | undefined {
     return this.workLoads[id];
   }
 
@@ -25,10 +32,10 @@ export class WorkloadService {
     const status: Status = 'WORKING';
 
     const milliseconds = complexity * 1000;
-    const completeDate = moment().add(complexity, 'second').toDate();
+    const completeDate = new Date(new Date().getTime() + milliseconds);
     const timer = setTimeout(() => this.completeWorkload(work), milliseconds);
 
-    const work: Work = {
+    const work: WorkWithTimer = {
       id,
       complexity,
       status,
@@ -59,11 +66,3 @@ export class WorkloadService {
 }
 
 export const workloadService = new WorkloadService();
-
-export interface Work {
-  id: number;
-  complexity: number;
-  completeDate: Date;
-  status: Status;
-  timer: NodeJS.Timeout;
-}
