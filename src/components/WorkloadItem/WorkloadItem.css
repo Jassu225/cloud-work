@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.WorkloadItem:first-of-type {
+  margin-top: 0;
+}
+
 .WorkloadItem-infoText {
   font-size: 0.85rem;
   margin-top: 6px;

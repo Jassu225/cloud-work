@@ -7,6 +7,7 @@
   background-color: #2a2b2d;
   border-radius: 8px;
   color: rgb(247, 248, 248);
+  grid-area: workload-creator;
 }
 
 .WorkloadForm-header {
@@ -25,4 +26,10 @@
   width: 100%;
   margin-bottom: 8px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 47.95em) {
+  .WorkloadForm-container {
+    margin-top: 0.75rem;
+  }
 }

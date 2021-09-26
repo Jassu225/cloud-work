@@ -9,15 +9,17 @@ const WorkloadList: React.FC = () => {
   return (
     <div className="workloads-list-container">
       <h3 className="workloads-header">Workloads</h3>
-      {!workloadsIDs.length 
-        ? (
-          <span>No workloads to display</span>
-        )
-      : 
-      workloadsIDs.map((workloadsID) => (
-          <WorkloadItem key={workloadsID} id={workloadsID} />
-        ))
-      }
+      <div className="workloads-list">
+        {!workloadsIDs.length 
+          ? (
+            <div className="no-workloads">No workloads to display</div>
+          )
+        : 
+        workloadsIDs.map((workloadsID) => (
+            <WorkloadItem key={workloadsID} id={workloadsID} />
+          ))
+        }
+      </div>
     </div>
   );
 };

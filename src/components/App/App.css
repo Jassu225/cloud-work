@@ -2,10 +2,18 @@
   height: 100%;
   display: grid;
   grid-template: max-content 1fr / 6fr 4fr;
+  grid-template-areas: 'app-header app-header' 'workloads-list-container workload-creator';
 }
 
 .app-header {
   padding: 0.75rem 1rem;
   background-color: #1f2123;
-  grid-column: span 2;
+  grid-area: app-header;
+}
+
+@media only screen and (max-width: 47.95em) {
+  .container {
+    grid-template: max-content max-content 1fr / 1fr;
+    grid-template-areas: 'app-header' 'workload-creator' 'workloads-list-container';
+  }
 }
