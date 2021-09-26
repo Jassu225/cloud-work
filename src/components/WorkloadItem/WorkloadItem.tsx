@@ -48,35 +48,32 @@ const WorkloadItem: React.FC<WorkloadItemProps> = (props) => {
 
   return (
   <div className="WorkloadItem">
-    <div>
-      <h4 className="WorkloadItem-heading">Workload #{workload.id}</h4>
-      <div className="WorkloadItem-infoText">
-        <span className="WorkloadItem-complexity">
-          <span className="WorkloadItem-infoText-header">Complexity: </span>
-          {workload.complexity}
-        </span>
-        {isWorking && (
-          <span className="WorkloadItem-time-remaining">
-            <span className="WorkloadItem-infoText-header"> • Time left: </span>
-            <TimeAgo date={workload.completeDate} formatter={timeFormatter} />
-          </span>
-        )}
-      </div>
-    </div>
-    <div className="WorkloadItem-status-or-time">
-      {isWorking
-        ? (
+    <div className="WorkloadItem-header">
+      <h4 className="WorkloadItem-header-title">
+        Workload #{workload.id}
+      </h4>
+        <div className="WorkloadItem-status-or-action">
+          {isWorking ? (
             <Button 
               className="WorkloadItem-cancelButton" 
               onClick={() => dispatch(cancel({ id: workload.id }))}
             >
               Cancel
             </Button>
-        )
-        : (
-          <span className={`WorkloadItem-statusText ${workload.status.toLowerCase()}`}>{workload.status}</span>
-        )
-      }
+          ) : (
+            <span className={`WorkloadItem-statusText ${workload.status.toLowerCase()}`}>
+              {workload.status}
+            </span>
+          )}
+        </div>
+    </div>
+    <div className="WorkloadItem-complexity WorkloadItem-infoText">
+      <span className="WorkloadItem-infoText-header">Complexity: </span>
+      {workload.complexity}
+    </div>
+    <div className="WorkloadItem-time-remaining WorkloadItem-infoText">
+      <span className="WorkloadItem-infoText-header">Time left: </span>
+      {isWorking ? (<TimeAgo date={workload.completeDate} formatter={timeFormatter} />) : 'None'}
     </div>
   </div>
 )};

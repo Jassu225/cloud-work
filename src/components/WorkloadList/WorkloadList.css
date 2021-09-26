@@ -4,16 +4,24 @@
   height: 100%;
   overflow: auto;
   padding: 0.75rem 1rem;
+  padding-top: 0;
   grid-area: workloads-list-container;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
+  grid-gap: 0.75rem;
 }
 
-.workloads-header {
-  padding-bottom: 0.75rem;
-  text-align: center;
+@media only screen and (max-width: 70.95em) {
+  .workloads-list-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.workloads-list {
-  margin-top: 1rem;
+@media only screen and (max-width: 47.95em) {
+  .workloads-list-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .no-workloads {

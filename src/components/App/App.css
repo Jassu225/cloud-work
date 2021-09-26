@@ -1,8 +1,8 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template: max-content 1fr / 6fr 4fr;
-  grid-template-areas: 'app-header app-header' 'workloads-list-container workload-creator';
+  grid-template: repeat(2, max-content) 1fr / 8fr 4fr;
+  grid-template-areas: 'app-header app-header' 'workloads-list-header .' 'workloads-list-container workload-creator';
 }
 
 .app-header {
@@ -11,9 +11,15 @@
   grid-area: app-header;
 }
 
+.workloads-list-header {
+  padding: 0.75rem;
+  text-align: center;
+  grid-area: workloads-list-header;
+}
+
 @media only screen and (max-width: 47.95em) {
   .container {
-    grid-template: max-content max-content 1fr / 1fr;
-    grid-template-areas: 'app-header' 'workload-creator' 'workloads-list-container';
+    grid-template: repeat(3, max-content) 1fr / 1fr;
+    grid-template-areas: 'app-header' 'workload-creator' 'workloads-list-header' 'workloads-list-container';
   }
 }

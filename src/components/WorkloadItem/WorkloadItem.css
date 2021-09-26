@@ -2,32 +2,41 @@
   color: rgb(247, 248, 248);
   box-shadow: 0 0.625rem 0.75rem rgba(18, 18, 18, 0.2);
   padding: 1.25rem;
-  margin-top: 1rem;
   background-color: #2a2b2d;
   border-radius: 8px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
   align-items: center;
 }
 
-.WorkloadItem:first-of-type {
-  margin-top: 0;
+.WorkloadItem-header {
+  display: flex;
+  align-items: center;
+  height: 32px;
+}
+
+.WorkloadItem-status-or-action {
+  margin-left: auto;
+}
+
+.WorkloadItem-cancelButton {
+  width: 80px;
 }
 
 .WorkloadItem-infoText {
   font-size: 0.85rem;
-  margin-top: 6px;
 }
 
 .WorkloadItem-infoText-header {
   font-weight: 600;
 }
 
-.WorkloadItem-time-remaining {
-  margin-left: 0px;
+.WorkloadItem-complexity {
+  margin-top: 2.5rem;
 }
 
-.WorkloadItem-status-or-time {
-  margin-left: auto;
+.WorkloadItem-time-remaining {
+  margin-top: 6px;
 }
 
 .WorkloadItem-statusText.failure {
@@ -36,10 +45,4 @@
 
 .WorkloadItem-statusText.success {
   color: #08bd80;
-}
-
-@media only screen and (max-width: 47.95em) {
-  .WorkloadItem-cancelButton {
-    width: 80px;
-  }
 }

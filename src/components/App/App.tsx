@@ -9,6 +9,7 @@ class App extends PureComponent {
     return (
       <div className="container">
         <h2 className="app-header">CloudWork</h2>
+        <h3 className="workloads-list-header">Workloads</h3>
         <WorkloadList />
         <WorkloadForm />
       </div>
