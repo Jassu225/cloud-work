@@ -9,9 +9,20 @@ export interface WorkloadItemProps {
     id: number;
 }
 
+const timeUnitShortMap = {
+  second: 'sec',
+  minute: 'min',
+  hour: 'hr',
+  day: 'day',
+  week: 'week',
+  month: 'month',
+  year: 'year'
+};
+
 const timeFormatter = (value: number, unit: TimeAgo.Unit) => {
+  const remappedUnit =  timeUnitShortMap[unit];
   return `${value} ${
-    value === 1 ? unit : `${unit}s`
+    value === 1 ? remappedUnit : `${remappedUnit}s`
   }`;
 }
 
@@ -46,7 +57,7 @@ const WorkloadItem: React.FC<WorkloadItemProps> = (props) => {
         </span>
         {isWorking && (
           <span className="WorkloadItem-time-remaining">
-            <span className="WorkloadItem-infoText-header"> • Time remaining: </span>
+            <span className="WorkloadItem-infoText-header"> • Time left: </span>
             <TimeAgo date={workload.completeDate} formatter={timeFormatter} />
           </span>
         )}
@@ -56,7 +67,7 @@ const WorkloadItem: React.FC<WorkloadItemProps> = (props) => {
       {isWorking
         ? (
             <Button 
-              className="WorkloadItem-secondaryButton" 
+              className="WorkloadItem-cancelButton" 
               onClick={() => dispatch(cancel({ id: workload.id }))}
             >
               Cancel

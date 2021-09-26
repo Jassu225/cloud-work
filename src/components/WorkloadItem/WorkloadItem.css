@@ -37,3 +37,9 @@
 .WorkloadItem-statusText.success {
   color: #08bd80;
 }
+
+@media only screen and (max-width: 47.95em) {
+  .WorkloadItem-cancelButton {
+    width: 80px;
+  }
+}
